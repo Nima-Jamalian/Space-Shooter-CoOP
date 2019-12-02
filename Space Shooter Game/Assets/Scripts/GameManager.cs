@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         _isGameOver = true;
     }
 
-    public void ButtonLoadGame(int SceneIntValue)
+    public void ButtonLoadScene(int SceneIntValue)
     {
         SceneManager.LoadScene(SceneIntValue);
     }

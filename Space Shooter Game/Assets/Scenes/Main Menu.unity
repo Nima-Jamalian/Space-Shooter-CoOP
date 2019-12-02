@@ -348,7 +348,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1731462332}
-        m_MethodName: ButtonLoadGame
+        m_MethodName: ButtonLoadScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -481,7 +481,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1731462332}
-        m_MethodName: ButtonLoadGame
+        m_MethodName: ButtonLoadScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

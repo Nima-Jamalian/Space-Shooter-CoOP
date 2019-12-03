@@ -95,7 +95,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     void FireLaser()
     {
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
@@ -123,12 +122,10 @@ public class Player : MonoBehaviour
             if (_isTripleShootPowerupActive)
             {
                 Instantiate(_tripleShootPrefab, new Vector3(transform.position.x, _offSetPositionY, transform.position.z), Quaternion.identity);
-
             }
             else
             {
                 Instantiate(_laserPrefab, new Vector3(transform.position.x, _offSetPositionY, transform.position.z), Quaternion.identity);
-
             }
             _playerAudiSource.Play();
         }

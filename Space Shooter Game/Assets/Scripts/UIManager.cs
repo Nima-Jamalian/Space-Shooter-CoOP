@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite[] _livesSprites = default;
     [SerializeField] private GameObject _restartButtonGameobject = default;
     [SerializeField] private GameObject _pauseMenuPanel = default;
-
+    private Animator _pauseAnimator;
     private GameManager _gameManager;
 
     bool _displayInGameMenuPanel = false;
@@ -22,9 +22,10 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 0;
         _gameOverText.gameObject.SetActive(false);
         _restartButtonGameobject.SetActive(false);
-        _pauseMenuPanel.SetActive(false);
+        //_pauseMenuPanel.SetActive(false);
         _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-
+        _pauseAnimator = _pauseMenuPanel.GetComponent<Animator>();
+        _pauseAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
         if (_gameManager == null)
         {
             Debug.LogError("GameManager is Null.");
@@ -43,13 +44,16 @@ public class UIManager : MonoBehaviour
         {
             if (!_displayInGameMenuPanel)
             {
-                Time.timeScale = 0;
                 _pauseMenuPanel.SetActive(true);
+                _pauseAnimator.SetBool("isPaused",true);
+                 Time.timeScale = 0;
                 _displayInGameMenuPanel = true;
             }
             else
             {
                 Time.timeScale = 1;
+                
+                //_displayInGameMenuPanel = false;
             }
         }
         if (Time.timeScale == 1)

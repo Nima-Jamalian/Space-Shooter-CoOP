@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private bool _isGameOver = false;
-    public bool _isSinglePlayer;
+    public  bool _singlePlayer;
+    public bool _multiPlayer;
     // Start is called before the first frame update
     void Start()
     {

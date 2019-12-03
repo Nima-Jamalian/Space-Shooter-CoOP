@@ -11,8 +11,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _gameOverText = default;
     [SerializeField] private Sprite[] _livesSprites = default;
     [SerializeField] private GameObject _restartButtonGameobject = default;
+    [SerializeField] private GameObject _pauseMenuPanel = default;
 
     private GameManager _gameManager;
+
+    bool _displayInGameMenuPanel = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,7 @@ public class UIManager : MonoBehaviour
         _restartButtonGameobject.SetActive(false);
         _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
-        if(_gameManager == null)
+        if (_gameManager == null)
         {
             Debug.LogError("GameManager is Null.");
         }
@@ -31,8 +34,27 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        DisplayPauseMenu();
     }
+
+    private void DisplayPauseMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!_displayInGameMenuPanel)
+            {
+                Time.timeScale = 0;
+                _pauseMenuPanel.SetActive(true);
+                _displayInGameMenuPanel = true;
+            }
+            else {
+                Time.timeScale = 1;
+                _pauseMenuPanel.SetActive(false);
+                _displayInGameMenuPanel = false;
+            }
+        }
+    }
+
 
     public void UpdateScore(int playerScore)
     {

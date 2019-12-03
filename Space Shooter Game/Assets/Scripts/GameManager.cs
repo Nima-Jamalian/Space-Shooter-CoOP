@@ -6,19 +6,23 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private bool _isGameOver = false;
-    public  bool _singlePlayer;
-    public bool _multiPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //ReloadTheGame();
-        QuitApplication();
+        //QuitApplication();
+        // if(Input.GetKeyDown(KeyCode.Escape)){
+        //     Time.timeScale = 0;
+        // } else {
+        //     Time.timeScale = 1;
+        // }
     }
 
     private void ReloadTheGame()
@@ -45,5 +49,9 @@ public class GameManager : MonoBehaviour
     public void ButtonLoadScene(int SceneIntValue)
     {
         SceneManager.LoadScene(SceneIntValue);
+    }
+
+    public void ResumeGame(){
+        Time.timeScale = 1;
     }
 }

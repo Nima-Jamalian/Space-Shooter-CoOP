@@ -69,7 +69,6 @@ public class Player : MonoBehaviour
         PlayerMovement();
         FireLaser();
         GameOverCheck();
-        print(_playerLife);
     }
 
     void PlayerMovement()

@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
 
     private void SpawnLaser()
     {
-        if (Time.time > _canFire)
+        if (Time.time > _canFire && Time.timeScale != 0)
         {
             _canFire = Time.time + _fireRate;
             float _offSetPositionY;

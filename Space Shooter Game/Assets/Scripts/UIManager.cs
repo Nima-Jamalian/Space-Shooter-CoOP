@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
     [SerializeField] private Text _scoreText = default;
     [SerializeField] private Image _livesImage = default;
     [SerializeField] private Text _gameOverText = default;
@@ -23,6 +22,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 0;
         _gameOverText.gameObject.SetActive(false);
         _restartButtonGameobject.SetActive(false);
+        _pauseMenuPanel.SetActive(false);
         _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         if (_gameManager == null)
@@ -47,14 +47,17 @@ public class UIManager : MonoBehaviour
                 _pauseMenuPanel.SetActive(true);
                 _displayInGameMenuPanel = true;
             }
-            else {
+            else
+            {
                 Time.timeScale = 1;
-                _pauseMenuPanel.SetActive(false);
-                _displayInGameMenuPanel = false;
             }
         }
+        if (Time.timeScale == 1)
+        {
+            _pauseMenuPanel.SetActive(false);
+            _displayInGameMenuPanel = false;
+        }
     }
-
 
     public void UpdateScore(int playerScore)
     {

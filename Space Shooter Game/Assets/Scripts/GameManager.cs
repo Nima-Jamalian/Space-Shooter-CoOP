@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private bool _isGameOver = false;
+    public bool _isSinglePlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +44,5 @@ public class GameManager : MonoBehaviour
     public void ButtonLoadScene(int SceneIntValue)
     {
         SceneManager.LoadScene(SceneIntValue);
-    }
-
-    public void ButtonRestartGame()
-    {
-        SceneManager.LoadScene(1);//Game Scene
     }
 }

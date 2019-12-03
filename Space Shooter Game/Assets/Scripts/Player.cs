@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -23,6 +22,7 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager = default;
     private UIManager _uiManager = default;
     private AudioSource _playerAudiSource = default;
+    private GameManager _gameManager = default;
     [SerializeField] private AudioClip _laserShootAudioClip = default;
 
     private bool _isTripleShootPowerupActive = false;
@@ -32,18 +32,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float _tripleShootPowerupLifeTime = 5f;
     [SerializeField] private float _speedPowerupLifeTime = 5f;
+
+    [SerializeField] private bool _isPlayer1;
+    [SerializeField] private bool _isPlayer2;
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.sceneCountInBuildSettings == 1){
-            transform.position = new Vector3(0, -3, 0);
-        } else {
-            //nothing
-        }
-
         _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _playerAudiSource = GetComponent<AudioSource>();
+        _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         if (_spawnManager == null)
         {
@@ -63,17 +61,34 @@ public class Player : MonoBehaviour
         {
             _playerAudiSource.clip = _laserShootAudioClip;
         }
+
+        if (_gameManager != null)
+        {
+            if (_gameManager._isSinglePlayer)
+            {
+                transform.position = new Vector3(0, -3, 0);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerMovement();
+        //if player 1
+        if (_isPlayer1 == true)
+        {
+            Player1Movement();
+        }
+        //if player 2
+        if (_isPlayer2 == true)
+        {
+            Player2Movement();      
+        }
         FireLaser();
         GameOverCheck();
     }
 
-    void PlayerMovement()
+    void Player1Movement()
     {
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
         float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -100,22 +115,61 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    void Player2Movement()
+    {
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
+        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
+
+#elif UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.Translate(Vector3.up * _speed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        }
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Translate(Vector3.left * _speed * Time.deltaTime);
+        }
+        if(Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Translate(Vector3.right * _speed * Time.deltaTime);
+        }
+#endif
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.9f, 0), 0);
+
+        if (transform.position.x >= 11)
+        {
+            transform.position = new Vector3(-11, transform.position.y, 0);
+        }
+        else if (transform.position.x <= -11)
+        {
+            transform.position = new Vector3(11, transform.position.y, 0);
+        }
+}
+
     void FireLaser()
     {
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
-        if (CrossPlatformInputManager.GetButtonDown("Fire"))
+        if (CrossPlatformInputManager.GetButtonDown("Fire") && _isPlayer1 == true)
         {
             SpawnLaser();
         }
 #endif
 
 #if UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _isPlayer1 == true)
         {
             SpawnLaser();
         }
+        if(Input.GetKeyDown(KeyCode.RightShift) && _isPlayer2 == true){
+            SpawnLaser();
+        }
 #endif
-
     }
 
     private void SpawnLaser()

@@ -8,7 +8,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab = default;
     [SerializeField] private GameObject _enemyContainer = default;
     [SerializeField] private GameObject[] _powerups = default;
-
     [SerializeField] private float _enemySpawnRateTime = 5f;
 
     private bool _stopSpawning = false;

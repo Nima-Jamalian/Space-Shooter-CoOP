@@ -71,7 +71,6 @@ public class Player : MonoBehaviour
         FireLaser();
         CheckforHighScore();
         GameOverCheck();
-        print(_highScore);
     }
 
     void PlayerMovement()

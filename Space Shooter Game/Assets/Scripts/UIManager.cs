@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 0;
         _gameOverText.gameObject.SetActive(false);
         _restartButtonGameobject.SetActive(false);
-        //_pauseMenuPanel.SetActive(false);
+         _pauseMenuPanel.SetActive(false);
         _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         _pauseAnimator = _pauseMenuPanel.GetComponent<Animator>();
         _pauseAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
@@ -52,7 +52,6 @@ public class UIManager : MonoBehaviour
             else
             {
                 Time.timeScale = 1;          
-                //_displayInGameMenuPanel = false;
             }
         }
         if (Time.timeScale == 1)

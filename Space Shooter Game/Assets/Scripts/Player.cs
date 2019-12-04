@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private float _canFire = -1;
     [SerializeField] private int _playerLife = 3;
     private int _score;
+    private int _highScore;
 
     [SerializeField] private GameObject _laserPrefab = default;
     [SerializeField] private GameObject _tripleShootPrefab = default;
@@ -60,7 +61,7 @@ public class Player : MonoBehaviour
         }
 
         transform.position = new Vector3(0, -3, 0);
-
+        _highScore = PlayerPrefs.GetInt("HighScore",0);
     }
 
     // Update is called once per frame
@@ -68,7 +69,9 @@ public class Player : MonoBehaviour
     {
         PlayerMovement();
         FireLaser();
+        CheckforHighScore();
         GameOverCheck();
+        print(_highScore);
     }
 
     void PlayerMovement()
@@ -215,6 +218,14 @@ public class Player : MonoBehaviour
     {
         _score += points;
         _uiManager.UpdateScore(_score);
+    }
+
+    private void CheckforHighScore(){
+        if(_score > _highScore){
+            _highScore = _score;
+            PlayerPrefs.SetInt("HighScore",_highScore);
+        }
+        _uiManager.UpdateHighScore(_highScore);
     }
 
 }

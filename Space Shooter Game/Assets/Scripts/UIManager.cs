@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Text _scoreText = default;
+    [SerializeField] private Text _highScoreText = default;
     [SerializeField] private Image _livesImage = default;
     [SerializeField] private Text _gameOverText = default;
     [SerializeField] private Sprite[] _livesSprites = default;
@@ -64,6 +65,10 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int playerScore)
     {
         _scoreText.text = "Score: " + playerScore.ToString();
+    }
+    
+    public void UpdateHighScore(int playerHighscore){
+        _highScoreText.text = "HighScore: " + playerHighscore.ToString();
     }
 
     public void UpdateLife(int playerLife)

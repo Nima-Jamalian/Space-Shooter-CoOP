@@ -51,8 +51,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                Time.timeScale = 1;
-                
+                Time.timeScale = 1;          
                 //_displayInGameMenuPanel = false;
             }
         }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private bool _isGameOver = false;
-
+    [SerializeField] private AudioSource _audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true)
         {
             SceneManager.LoadScene(1);//Game Scene
+            _audioSource.volume = 0.3f;
         }
     }
 
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
     public void GameIsOver()
     {
         _isGameOver = true;
+        _audioSource.volume = 0;
     }
 
     public void ButtonLoadScene(int SceneIntValue)

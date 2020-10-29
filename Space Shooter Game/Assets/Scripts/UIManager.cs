@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite[] _livesSprites = default;
     [SerializeField] private GameObject _restartButtonGameobject = default;
     [SerializeField] private GameObject _pauseMenuPanel = default;
+
+    //Acessesing VungleAddManger
+    [SerializeField] private VungleAddManager _vungleAddManager;
     private Animator _pauseAnimator;
     private GameManager _gameManager;
 
@@ -84,6 +87,8 @@ public class UIManager : MonoBehaviour
     {
         _gameManager.GameIsOver();
         _gameOverText.gameObject.SetActive(true);
+        //playing adds when the player is dead
+        _vungleAddManager.PlayPlacement1Add();
         _restartButtonGameobject.SetActive(true);
         StartCoroutine(TextOnAndOff());
     }

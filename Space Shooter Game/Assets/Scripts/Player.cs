@@ -78,7 +78,8 @@ public class Player : MonoBehaviour
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
         float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
         float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
-
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        transform.Translate(direction * _speed * Time.deltaTime);
 #elif UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
